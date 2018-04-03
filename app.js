@@ -124,7 +124,7 @@ app.post('/ResNet50/predict', (req, res) => {
     var payload = { "image": image }
     // var data = fs.readFileSync("./public/uploads/"+predfileName);
     // console.log(data);
-    var KERAS_REST_API_URL = "http://129.59.107.65:7778/predict"
+    var KERAS_REST_API_URL = "http://10.10.0.2.:8888/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -154,5 +154,6 @@ app.post('/ResNet50/predict', (req, res) => {
 
 });
 
-const port = 3000;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+const port = 5555;
+const host = '0.0.0.0'
+app.listen(port, host, () => console.log(`Server started on host ${host} at port ${port}`));
