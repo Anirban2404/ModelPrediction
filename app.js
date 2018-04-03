@@ -59,27 +59,28 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 app.get('/', (req, res) => res.render('start'));
-app.get('/index', (req, res) => res.render('index'));
-app.post('/upload', (req, res) => {
+app.get('/ResNet50', (req, res) => res.render('ResNet50'));
+app.post('/ResNet50/upload', (req, res) => {
     upload(req, res, (err) => {
         if (err) {
-            res.render('index', {
+            res.render('ResNet50', {
                 msg: err
             });
         } else {
             if (req.file == undefined) {
-                res.render('index', {
+                res.render('ResNet50', {
                     msg: 'Error: No File to be Uploaded!'
                 });
             } else {
-                res.render('index', {
+                res.render('ResNet50', {
                     msg: 'File Uploaded!',
-                    file: `uploads/${req.file.filename}`
+                    file: `../uploads/${req.file.filename}`
                 });
             }
         }
     });
 });
+
 
 
 
@@ -92,16 +93,16 @@ var download = function (uri, filename, callback) {
     });
 };
 
-app.get('/download', (req, res) => {
+app.get('/ResNet50/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = './uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName; 
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
-        res.render('index', {
+        res.render('ResNet50', {
             msg: 'File Downloaded!',
             file: fullimgPath
         });
@@ -112,7 +113,7 @@ app.get('/download', (req, res) => {
 // initialize the Keras REST API endpoint URL along with the input
 // image path
 
-app.post('/predict', (req, res) => {
+app.post('/ResNet50/predict', (req, res) => {
     //console.log("./public/uploads/" + predfileName);
     // var formData = {
     //     "image": image,
@@ -124,11 +125,11 @@ app.post('/predict', (req, res) => {
     // var data = fs.readFileSync("./public/uploads/"+predfileName);
     // console.log(data);
     var KERAS_REST_API_URL = "http://129.59.107.65:7778/predict"
-    var imagePath = "./uploads/" + predfileName
+    var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
         if (err) {
-            res.render('index', {
+            res.render('ResNet50', {
                 msg: 'Prediction Failed!',
             });
             return console.error('Prediction failed:', err);
@@ -137,7 +138,7 @@ app.post('/predict', (req, res) => {
         var bodyjson = JSON.parse(body);
         str = bodyjson['predictions'];
         // console.log(str)
-        res.render('index', {
+        res.render('ResNet50', {
             msg: 'File Predicted!',
             file: imagePath,
             str: str
