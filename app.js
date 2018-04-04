@@ -57,7 +57,79 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
+//Xception
+app.get('/', (req, res) => res.render('start'));
+app.get('/Xception', (req, res) => res.render('Xception'));
+app.post('/Xception/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('Xception', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('Xception', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('Xception', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
 
+//VGG16
+app.get('/', (req, res) => res.render('start'));
+app.get('/VGG16', (req, res) => res.render('VGG16'));
+app.post('/VGG16/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('VGG16', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('VGG16', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('VGG16', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//VGG19
+app.get('/', (req, res) => res.render('start'));
+app.get('/VGG19', (req, res) => res.render('VGG19'));
+app.post('/VGG19/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('VGG19', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('VGG19', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('VGG19', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//Resnet50
 app.get('/', (req, res) => res.render('start'));
 app.get('/ResNet50', (req, res) => res.render('ResNet50'));
 app.post('/ResNet50/upload', (req, res) => {
@@ -81,7 +153,101 @@ app.post('/ResNet50/upload', (req, res) => {
     });
 });
 
+//InceptionV3
+app.get('/', (req, res) => res.render('start'));
+app.get('/InceptionV3', (req, res) => res.render('InceptionV3'));
+app.post('/InceptionV3/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('InceptionV3', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('InceptionV3', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('InceptionV3', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
 
+//InceptionResNetV2
+app.get('/', (req, res) => res.render('start'));
+app.get('/InceptionResNetV2', (req, res) => res.render('InceptionResNetV2'));
+app.post('/InceptionResNetV2/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('InceptionResNetV2', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('InceptionResNetV2', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('InceptionResNetV2', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//MobileNet
+app.get('/', (req, res) => res.render('start'));
+app.get('/MobileNet', (req, res) => res.render('MobileNet'));
+app.post('/ResNetMobileNet50/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('MobileNet', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('MobileNet', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('MobileNet', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//DenseNet
+app.get('/', (req, res) => res.render('start'));
+app.get('/DenseNet', (req, res) => res.render('DenseNet'));
+app.post('/DenseNet/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('DenseNet', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('DenseNet', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('DenseNet', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
 
 
 var download = function (uri, filename, callback) {
@@ -93,6 +259,61 @@ var download = function (uri, filename, callback) {
     });
 };
 
+//Xception
+app.get('/Xception/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('Xception', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//VGG16
+app.get('/VGG16/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('VGG16', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//VGG19
+app.get('/VGG19/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('VGG19', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//Resnet50
 app.get('/ResNet50/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
@@ -103,6 +324,78 @@ app.get('/ResNet50/download', (req, res) => {
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('ResNet50', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//InceptionV3
+app.get('/InceptionV3/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('InceptionV3', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//InceptionResNetV2
+app.get('/InceptionResNetV2/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('InceptionResNetV2', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//MobileNet
+app.get('/MobileNet/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('MobileNet', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//DenseNet
+app.get('/DenseNet/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName; 
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('DenseNet', {
             msg: 'File Downloaded!',
             file: fullimgPath
         });
