@@ -12,9 +12,9 @@
     </nav>
 
     <div class="container">
-      <h1>Prediction</h1>
+      <h2>InceptionResNetV2 Model</h2>
       <%= typeof msg != 'undefined' ? msg : '' %>
-        <form action="/ResNet50/upload" method="POST" enctype="multipart/form-data">
+        <form action="/InceptionResNetV2/upload" method="POST" enctype="multipart/form-data">
           <div class="file-field input-field">
             <div class="btn blue">
               <span>File</span>
@@ -31,7 +31,7 @@
         </form>
         </br>
         <h6 style="color:blue">Image Download URL: </h6>
-        <form action="/ResNet50/download" method="GET">
+        <form action="/InceptionResNetV2/download" method="GET">
           <div class="form-group">
             <input value="https://i.ytimg.com/vi/tjr_SEw76zM/maxresdefault.jpg" name="urlname" id="urlname" type="text" class="validate">
             <label class="active" for="urlname">Download URL</label>
@@ -43,7 +43,7 @@
         </form>
         </br>
         <img src="<%= typeof file != 'undefined' ? file : '' %>" width="500" class="responsive-img">
-        <form action="/ResNet50/predict" method="POST" enctype="multipart/form-data">
+        <form action="/InceptionResNetV2/predict" method="POST" enctype="multipart/form-data">
           <!-- <button type="submit" class="btn">Submit</button> -->
           <button class="btn waves-effect waves-light" type="submit" name="action">Predict
             <i class="material-icons right">send</i>
