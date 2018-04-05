@@ -52,12 +52,12 @@ app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 
 // Body Parser
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+    extended: true
+}));
 
-//Xception
+//Xception upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/Xception', (req, res) => res.render('Xception'));
 app.post('/Xception/upload', (req, res) => {
@@ -81,7 +81,7 @@ app.post('/Xception/upload', (req, res) => {
     });
 });
 
-//VGG16
+//VGG16 upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/VGG16', (req, res) => res.render('VGG16'));
 app.post('/VGG16/upload', (req, res) => {
@@ -105,7 +105,7 @@ app.post('/VGG16/upload', (req, res) => {
     });
 });
 
-//VGG19
+//VGG19 upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/VGG19', (req, res) => res.render('VGG19'));
 app.post('/VGG19/upload', (req, res) => {
@@ -129,7 +129,7 @@ app.post('/VGG19/upload', (req, res) => {
     });
 });
 
-//Resnet50
+//Resnet50 upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/ResNet50', (req, res) => res.render('ResNet50'));
 app.post('/ResNet50/upload', (req, res) => {
@@ -153,7 +153,7 @@ app.post('/ResNet50/upload', (req, res) => {
     });
 });
 
-//InceptionV3
+//InceptionV3 upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/InceptionV3', (req, res) => res.render('InceptionV3'));
 app.post('/InceptionV3/upload', (req, res) => {
@@ -177,7 +177,7 @@ app.post('/InceptionV3/upload', (req, res) => {
     });
 });
 
-//InceptionResNetV2
+//InceptionResNetV2 upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/InceptionResNetV2', (req, res) => res.render('InceptionResNetV2'));
 app.post('/InceptionResNetV2/upload', (req, res) => {
@@ -201,10 +201,10 @@ app.post('/InceptionResNetV2/upload', (req, res) => {
     });
 });
 
-//MobileNet
+//MobileNet upload
 app.get('/', (req, res) => res.render('start'));
 app.get('/MobileNet', (req, res) => res.render('MobileNet'));
-app.post('/ResNetMobileNet50/upload', (req, res) => {
+app.post('/MobileNet/upload', (req, res) => {
     upload(req, res, (err) => {
         if (err) {
             res.render('MobileNet', {
@@ -225,22 +225,70 @@ app.post('/ResNetMobileNet50/upload', (req, res) => {
     });
 });
 
-//DenseNet
+//DenseNet121  upload
 app.get('/', (req, res) => res.render('start'));
-app.get('/DenseNet', (req, res) => res.render('DenseNet'));
-app.post('/DenseNet/upload', (req, res) => {
+app.get('/DenseNet121', (req, res) => res.render('DenseNet121'));
+app.post('/DenseNet121/upload', (req, res) => {
     upload(req, res, (err) => {
         if (err) {
-            res.render('DenseNet', {
+            res.render('DenseNet121', {
                 msg: err
             });
         } else {
             if (req.file == undefined) {
-                res.render('DenseNet', {
+                res.render('DenseNet121', {
                     msg: 'Error: No File to be Uploaded!'
                 });
             } else {
-                res.render('DenseNet', {
+                res.render('DenseNet121', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//DenseNet169  upload
+app.get('/', (req, res) => res.render('start'));
+app.get('/DenseNet169', (req, res) => res.render('DenseNet169'));
+app.post('/DenseNet169/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('DenseNet169', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('DenseNet169', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('DenseNet169', {
+                    msg: 'File Uploaded!',
+                    file: `../uploads/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//DenseNet201  upload
+app.get('/', (req, res) => res.render('start'));
+app.get('/DenseNet201', (req, res) => res.render('DenseNet201'));
+app.post('/DenseNet201/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.render('DenseNet201', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('DenseNet201', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('DenseNet201', {
                     msg: 'File Uploaded!',
                     file: `../uploads/${req.file.filename}`
                 });
@@ -259,14 +307,14 @@ var download = function (uri, filename, callback) {
     });
 };
 
-//Xception
+//Xception download
 app.get('/Xception/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('Xception', {
@@ -277,14 +325,14 @@ app.get('/Xception/download', (req, res) => {
     });
 });
 
-//VGG16
+//VGG16 download
 app.get('/VGG16/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('VGG16', {
@@ -295,14 +343,14 @@ app.get('/VGG16/download', (req, res) => {
     });
 });
 
-//VGG19
+//VGG19 download
 app.get('/VGG19/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('VGG19', {
@@ -313,14 +361,14 @@ app.get('/VGG19/download', (req, res) => {
     });
 });
 
-//Resnet50
+//Resnet50 download
 app.get('/ResNet50/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('ResNet50', {
@@ -331,14 +379,14 @@ app.get('/ResNet50/download', (req, res) => {
     });
 });
 
-//InceptionV3
+//InceptionV3 download
 app.get('/InceptionV3/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('InceptionV3', {
@@ -349,14 +397,14 @@ app.get('/InceptionV3/download', (req, res) => {
     });
 });
 
-//InceptionResNetV2
+//InceptionResNetV2 download
 app.get('/InceptionResNetV2/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('InceptionResNetV2', {
@@ -367,14 +415,14 @@ app.get('/InceptionResNetV2/download', (req, res) => {
     });
 });
 
-//MobileNet
+//MobileNet download
 app.get('/MobileNet/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
         res.render('MobileNet', {
@@ -385,17 +433,53 @@ app.get('/MobileNet/download', (req, res) => {
     });
 });
 
-//DenseNet
-app.get('/DenseNet/download', (req, res) => {
+//DenseNet121  download
+app.get('/DenseNet121/download', (req, res) => {
     console.log("Downloading..");
     console.log(req.query.urlname);
     var url = req.query.urlname;
     var downloadLocation = './public/uploads/';
     predfileName = 'myImage-' + Date.now() + ".jpg";
-    var fullimgPath = '../uploads/' + predfileName; 
+    var fullimgPath = '../uploads/' + predfileName;
     console.log(fullimgPath);
     download(url, downloadLocation + predfileName, function () {
-        res.render('DenseNet', {
+        res.render('DenseNet121', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//DenseNet169 download
+app.get('/DenseNet169/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName;
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('DenseNet169', {
+            msg: 'File Downloaded!',
+            file: fullimgPath
+        });
+        console.log('done');
+    });
+});
+
+//DenseNet201  download
+app.get('/DenseNet201/download', (req, res) => {
+    console.log("Downloading..");
+    console.log(req.query.urlname);
+    var url = req.query.urlname;
+    var downloadLocation = './public/uploads/';
+    predfileName = 'myImage-' + Date.now() + ".jpg";
+    var fullimgPath = '../uploads/' + predfileName;
+    console.log(fullimgPath);
+    download(url, downloadLocation + predfileName, function () {
+        res.render('DenseNet201', {
             msg: 'File Downloaded!',
             file: fullimgPath
         });
@@ -406,18 +490,125 @@ app.get('/DenseNet/download', (req, res) => {
 // initialize the Keras REST API endpoint URL along with the input
 // image path
 
-app.post('/ResNet50/predict', (req, res) => {
-    //console.log("./public/uploads/" + predfileName);
-    // var formData = {
-    //     "image": image,
-    //     image: fs.readFileSync("./public/uploads/" + predfileName)
-    // };
+//Xception predict
+app.post('/Xception/predict', (req, res) => {
+
     const ImgfileName = "./public/uploads/" + predfileName;
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
-    // var data = fs.readFileSync("./public/uploads/"+predfileName);
-    // console.log(data);
-    var KERAS_REST_API_URL = "http://10.10.0.2.:8888/predict"
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7000/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('Xception', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('Xception', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//VGG16 predict
+app.post('/VGG16/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7001/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('VGG16', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('VGG16', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//VGG19 predict
+app.post('/VGG19/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7002/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('VGG19', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('VGG19', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//Resnet50 predict
+app.post('/ResNet50/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7003/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -432,6 +623,228 @@ app.post('/ResNet50/predict', (req, res) => {
         str = bodyjson['predictions'];
         // console.log(str)
         res.render('ResNet50', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//InceptionV3 predict
+app.post('/InceptionV3/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7004/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('InceptionV3', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('InceptionV3', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//InceptionResNetV2 predict
+app.post('/InceptionResNetV2/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7005/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('InceptionResNetV2', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('InceptionResNetV2', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//MobileNet predict
+app.post('/MobileNet/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7006/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('MobileNet', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('MobileNet', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//DenseNet121 predict
+app.post('/DenseNet121/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7007/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('DenseNet121', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('DenseNet121', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//DenseNet169 predict
+app.post('/DenseNet169/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7008/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('DenseNet169', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('DenseNet169', {
+            msg: 'File Predicted!',
+            file: imagePath,
+            str: str
+        });
+        for (i in bodyjson['predictions']) {
+            console.log(bodyjson['predictions'][i].label + " : " + bodyjson['predictions'][i].probability);
+        }
+    });
+
+    var form = r.form();
+    form.append('image', image, { filename: 'image' });
+    console.log(imagePath);
+
+});
+
+//DenseNet201 predict
+app.post('/DenseNet201/predict', (req, res) => {
+
+    const ImgfileName = "./public/uploads/" + predfileName;
+    var image = fs.createReadStream(ImgfileName);
+    var payload = { "image": image }
+
+    var KERAS_REST_API_URL = "http://129.59.107.65:7009/predict"
+    var imagePath = "../uploads/" + predfileName
+    var str = null
+    var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('DenseNet201', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        // console.log(str)
+        res.render('DenseNet201', {
             msg: 'File Predicted!',
             file: imagePath,
             str: str
