@@ -497,7 +497,7 @@ app.post('/Xception/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7000/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7000/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -534,7 +534,7 @@ app.post('/VGG16/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7001/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7001/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -571,7 +571,7 @@ app.post('/VGG19/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7002/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7002/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -608,7 +608,7 @@ app.post('/ResNet50/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7003/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7003/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -645,7 +645,7 @@ app.post('/InceptionV3/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7004/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7004/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -682,7 +682,7 @@ app.post('/InceptionResNetV2/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7005/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7005/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -719,7 +719,7 @@ app.post('/MobileNet/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7006/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7006/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -756,7 +756,7 @@ app.post('/DenseNet121/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7007/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7007/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -793,7 +793,7 @@ app.post('/DenseNet169/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7008/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7008/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -830,7 +830,7 @@ app.post('/DenseNet201/predict', (req, res) => {
     var image = fs.createReadStream(ImgfileName);
     var payload = { "image": image }
 
-    var KERAS_REST_API_URL = "http://129.59.107.65:7009/predict"
+    var KERAS_REST_API_URL = "http://127.0.0.1:7009/predict"
     var imagePath = "../uploads/" + predfileName
     var str = null
     var r = request.post(KERAS_REST_API_URL, function optionalCallback(err, httpResponse, body) {
