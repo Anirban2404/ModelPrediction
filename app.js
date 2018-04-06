@@ -860,6 +860,12 @@ app.post('/DenseNet201/predict', (req, res) => {
 
 });
 
+app.get('/word2vec_google', (req, res) => res.render('word2vec_google'));
+
+app.get('/word2vec_glove', (req, res) => res.render('word2vec_glove'));
+
+app.get('/speech_to_text_wavenet', (req, res) => res.render('speech_to_text_wavenet'));
+
 const port = 5555;
 const host = '0.0.0.0'
 app.listen(port, host, () => console.log(`Server started on host ${host} at port ${port}`));
