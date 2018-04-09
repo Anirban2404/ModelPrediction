@@ -17,6 +17,15 @@ const storage = multer.diskStorage({
     }
 });
 
+// Set Audio Storage Engine 
+const audiostorage = multer.diskStorage({
+    destination: './public/audioSamples/',
+    filename: function (req, file, callback) {
+        predfileName = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
+        callback(null, predfileName);
+    }
+});
+
 // Init Upload
 const upload = multer({
     storage: storage,
@@ -25,6 +34,14 @@ const upload = multer({
         checkFileType(file, callback);
     }
 }).single('myImage');
+
+const audioupload = multer({
+    storage: audiostorage,
+    limits: { fileSize: 10000000 },
+    fileFilter: function (req, file, callback) {
+        checkAudioType(file, callback);
+    }
+}).single('myAudio');
 
 // Check File Type
 function checkFileType(file, callback) {
@@ -39,6 +56,20 @@ function checkFileType(file, callback) {
         return callback(null, true);
     } else {
         callback('Error: Images Only!');
+    }
+}
+
+// Check File Type
+function checkAudioType(file, callback) {
+    // Allowed ext
+    const filetypes = /wav|ogg|mp3|flac/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());    
+    
+    if (extname) {
+        return callback(null, true);
+    } else {
+        callback('Error: Audio Files Only!');
     }
 }
 
@@ -865,6 +896,114 @@ app.get('/word2vec_google', (req, res) => res.render('word2vec_google'));
 app.get('/word2vec_glove', (req, res) => res.render('word2vec_glove'));
 
 app.get('/speech_to_text_wavenet', (req, res) => res.render('speech_to_text_wavenet'));
+
+//speech_to_text_wavenet upload
+app.post('/speech_to_text_wavenet/upload', (req, res) => {
+    audioupload(req, res, (err) => {
+        if (err) {
+            res.render('speech_to_text_wavenet', {
+                msg: err
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('speech_to_text_wavenet', {
+                    msg: 'Error: No File to be Uploaded!'
+                });
+            } else {
+                res.render('speech_to_text_wavenet', {
+                    msg: 'File Uploaded!',
+                    file: `../audioSamples/${req.file.filename}`
+                });
+            }
+        }
+    });
+});
+
+//speech_to_text_wavenet predict
+app.post('/speech_to_text_wavenet/predict', (req, res) => {
+    var str = null
+    const audiofileName = "./public/audioSamples/" + predfileName;
+    var audio = fs.createReadStream(audiofileName);
+    var payload = { "audio": audio }
+    console.log(req.url);
+    var WAVENET_REST_API_URL = "http://129.59.107.65:7012/predict"
+    var audioPath = "../audioSamples/" + predfileName
+    var str = null
+    var r = request.post(WAVENET_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('speech_to_text_wavenet', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        console.log(str)
+        res.render('speech_to_text_wavenet', {
+            msg: 'File Predicted!',
+            file: audioPath,
+            str: str
+        });        
+    });
+
+    var form = r.form();
+    form.append('audio', audio, { filename: 'audio' });
+    //console.log(audioPath);
+
+});
+
+app.post('/speech_to_text_wavenet/predict/sample1.mp3', (req, res) => {
+    var str_sample = null
+    var sampleName = "sample1.mp3";
+    predictSample(sampleName, req, res);
+});
+app.post('/speech_to_text_wavenet/predict/sample2.wav', (req, res) => {
+    var str_sample = null
+    var sampleName = "sample2.wav";
+    predictSample(sampleName, req, res);
+});
+app.post('/speech_to_text_wavenet/predict/sample3.flac', (req, res) => {
+    var str_sample = null
+    var sampleName = "sample3.flac";
+    predictSample(sampleName, req, res);
+});
+app.post('/speech_to_text_wavenet/predict/sample4.flac', (req, res) => {
+    var str_sample = null
+    var sampleName = "sample4.flac";
+    predictSample(sampleName, req, res);
+});
+
+function predictSample(sampleName, req, res, callback) {    
+    const audiofileName = "./public/audioSamples/" + sampleName;
+    var audio = fs.createReadStream(audiofileName);
+    var payload = { "audio": audio }
+    // console.log(req.url);
+    var WAVENET_REST_API_URL = "http://129.59.107.65:7012/predict"
+    var audioPath = "../audioSamples/" + sampleName
+    var str_sample = null
+    var r_sample = request.post(WAVENET_REST_API_URL, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('speech_to_text_wavenet', {
+                msg: 'Prediction Failed!',
+            });
+            return console.error('Prediction failed:', err);
+        }
+        str_sample = null
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'];
+        console.log(str)
+        res.render('speech_to_text_wavenet', {
+            msg: 'File Predicted!',
+            file: audioPath,
+            str_sample: str_sample
+        });        
+    });
+
+    var form = r_sample.form();
+    form.append('audio', audio, { filename: 'audio' });
+    // console.log(audioPath);
+};
 
 const port = 5555;
 const host = '0.0.0.0'

@@ -1,133 +1,192 @@
-<% include header %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <nav class="white" role="navigation">
-            <div class="nav-wrapper container">
-                <ul class="left hide-on-med-and-down">
-                    <li>
-                        <a href="/" style="color:black">Back</a>
-                    </li>
-                </ul>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>File Prediction</title>
+</head>
+
+<body>
+
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+            <ul class="left hide-on-med-and-down">
+                <li>
+                    <a href="/" style="color:black">Back</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>DeepMind's Speech-to-Text-WaveNet Model</h2>
+
+
+        <form action="/speech_to_text_wavenet/upload" method="POST" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <div class="btn blue">
+                    <span>File</span>
+                    <input name="myAudio" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
             </div>
-        </nav>
-
-        <div class="container">
-            <h2>DeepMind's Speech-to-Text-WaveNet Model</h2>
-
-            <div>
-                <table>
-                    <tr>
-                        <td class="transcript">Sample1</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/amy.mp3">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample2</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/brian.wav">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample3</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/sample1.flac">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample4</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/sample2.flac">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample5</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/sample3.flac">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample6</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/sample4.flac">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <td class="transcript">Sample7</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <audio controls>
-                                <source src="./audioSamples/sample5.flac">
-                            </audio>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Transcribe</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <!-- <button type="submit" class="btn">Submit</button> -->
+            <button class="btn waves-effect waves-light" type="submit" name="action">Upload
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
 
 
-            <% include footer %>
+        <div>
+            <table>
+                <tr>
+                    <td class="transcript">Uploaded File: </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <audio controls>
+                            <source src="../audioSamples/sample3.flac">
+                        </audio>
+                    </td>
+                    <td>
+                        <form action="/speech_to_text_wavenet/predict" method="POST" enctype="multipart/form-data">
+                            <!-- <button type="submit" class="btn">Submit</button> -->
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div>
+            <table>
+                <% audiofile= "sample1.mp3" %>
+                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                            <tr>
+                                <td class="transcript">Sample1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <audio controls>
+                                        <source src="../audioSamples/<%= audiofile %>">
+                                    </audio>
+                                </td>
+                                <td>
+                                    <!-- <button type="submit" class="btn">Submit</button> -->
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+            </table>
+            <table>
+                <% audiofile= "sample2.wav" %>
+                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                            <tr>
+                                <td class="transcript">Sample1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <audio controls>
+                                        <source src="../audioSamples/<%= audiofile %>">
+                                    </audio>
+                                </td>
+                                <td>
+                                    <!-- <button type="submit" class="btn">Submit</button> -->
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+            </table>
+
+
+            <table>
+                <% audiofile= "sample3.flac" %>
+                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                            <tr>
+                                <td class="transcript">Sample1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <audio controls>
+                                        <source src="../audioSamples/<%= audiofile %>">
+                                    </audio>
+                                </td>
+                                <td>
+                                    <!-- <button type="submit" class="btn">Submit</button> -->
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+            </table>
+
+            <table>
+                <% audiofile= "sample4.flac" %>
+                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                            <tr>
+                                <td class="transcript">Sample1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <audio controls>
+                                        <source src="../audioSamples/<%= audiofile %>">
+                                    </audio>
+                                </td>
+                                <td>
+                                    <!-- <button type="submit" class="btn">Submit</button> -->
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+            </table>
+
+        </div>
+
+        </br>
+
+        <table>
+            <tr>
+                <td class="transcript" style="color:rgb(3, 165, 165)">Predicted Output: </td>
+                </br>
+            </tr>
+            <td>
+                a gentle kick from the tall boy in the bench behind urged stevin to ask at difficult question
+            </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+
+</html>
