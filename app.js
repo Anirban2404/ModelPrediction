@@ -992,7 +992,7 @@ function predictSample(sampleName, req, res, callback) {
         str_sample = null
         var bodyjson = JSON.parse(body);
         str = bodyjson['predictions'];
-        console.log(str)
+        // console.log(str)
         res.render('speech_to_text_wavenet', {
             msg: 'File Predicted!',
             file: audioPath,

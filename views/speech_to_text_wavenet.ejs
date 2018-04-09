@@ -27,158 +27,160 @@
     <div class="container">
         <h2>DeepMind's Speech-to-Text-WaveNet Model</h2>
 
-
-        <form action="/speech_to_text_wavenet/upload" method="POST" enctype="multipart/form-data">
-            <div class="file-field input-field">
-                <div class="btn blue">
-                    <span>File</span>
-                    <input name="myAudio" type="file">
+        <%= typeof msg != 'undefined' ? msg : '' %>
+            <form action="/speech_to_text_wavenet/upload" method="POST" enctype="multipart/form-data">
+                <div class="file-field input-field">
+                    <div class="btn blue">
+                        <span>File</span>
+                        <input name="myAudio" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
                 </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+                <!-- <button type="submit" class="btn">Submit</button> -->
+                <button class="btn waves-effect waves-light" type="submit" name="action">Upload
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+
+            <%if (typeof str != 'undefined') {%>
+                <div>
+                    <table>
+                        <tr>
+                            <td class="transcript">Uploaded File: </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <audio controls>
+                                    <source src="<%= typeof file != 'undefined' ? file : '' %>">
+                                </audio>
+                            </td>
+                            <td>
+                                <form action="/speech_to_text_wavenet/predict" method="POST" enctype="multipart/form-data">
+                                    <!-- <button type="submit" class="btn">Submit</button> -->
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <!-- <button type="submit" class="btn">Submit</button> -->
-            <button class="btn waves-effect waves-light" type="submit" name="action">Upload
-                <i class="material-icons right">send</i>
-            </button>
-        </form>
+                <%}%>
 
 
-        <div>
-            <table>
-                <tr>
-                    <td class="transcript">Uploaded File: </td>
-                </tr>
+                    <div>
+                        <table>
+                            <% audiofile= "sample1.mp3" %>
+                                <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                                    <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                                        <tr>
+                                            <td class="transcript">Sample1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <audio controls>
+                                                    <source src="../../audioSamples/<%= audiofile %>">
+                                                </audio>
+                                            </td>
+                                            <td>
+                                                <!-- <button type="submit" class="btn">Submit</button> -->
+                                                <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                        </table>
+                        <table>
+                            <% audiofile= "sample2.wav" %>
+                                <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                                    <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                                        <tr>
+                                            <td class="transcript">Sample2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <audio controls>
+                                                    <source src="../../audioSamples/<%= audiofile %>">
+                                                </audio>
+                                            </td>
+                                            <td>
+                                                <!-- <button type="submit" class="btn">Submit</button> -->
+                                                <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                        </table>
 
 
-                <tr>
-                    <td>
-                        <audio controls>
-                            <source src="../audioSamples/sample3.flac">
-                        </audio>
-                    </td>
-                    <td>
-                        <form action="/speech_to_text_wavenet/predict" method="POST" enctype="multipart/form-data">
-                            <!-- <button type="submit" class="btn">Submit</button> -->
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                        <table>
+                            <% audiofile= "sample3.flac" %>
+                                <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                                    <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                                        <tr>
+                                            <td class="transcript">Sample3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <audio controls>
+                                                    <source src="../../audioSamples/<%= audiofile %>">
+                                                </audio>
+                                            </td>
+                                            <td>
+                                                <!-- <button type="submit" class="btn">Submit</button> -->
+                                                <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                        </table>
 
+                        <table>
+                            <% audiofile= "sample4.flac" %>
+                                <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
+                                    <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                                        <tr>
+                                            <td class="transcript">Sample4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <audio controls>
+                                                    <source src="../../audioSamples/<%= audiofile %>">
+                                                </audio>
+                                            </td>
+                                            <td>
+                                                <!-- <button type="submit" class="btn">Submit</button> -->
+                                                <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                        </table>
 
+                    </div>
 
-        <div>
-            <table>
-                <% audiofile= "sample1.mp3" %>
-                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
-                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
+                    </br>
+
+                    <%if (typeof str != 'undefined') {%>
+                        <table>
                             <tr>
-                                <td class="transcript">Sample1</td>
+                                <td class="transcript" style="color:rgb(3, 165, 165)">Predicted Output: </td>
+                                </br>
                             </tr>
-                            <tr>
-                                <td>
-                                    <audio controls>
-                                        <source src="../audioSamples/<%= audiofile %>">
-                                    </audio>
-                                </td>
-                                <td>
-                                    <!-- <button type="submit" class="btn">Submit</button> -->
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </td>
+                            <td>
+                                <%= str %>
+                            </td>
                             </tr>
-                        </form>
-            </table>
-            <table>
-                <% audiofile= "sample2.wav" %>
-                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
-                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
-                            <tr>
-                                <td class="transcript">Sample1</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <audio controls>
-                                        <source src="../audioSamples/<%= audiofile %>">
-                                    </audio>
-                                </td>
-                                <td>
-                                    <!-- <button type="submit" class="btn">Submit</button> -->
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
-            </table>
-
-
-            <table>
-                <% audiofile= "sample3.flac" %>
-                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
-                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
-                            <tr>
-                                <td class="transcript">Sample1</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <audio controls>
-                                        <source src="../audioSamples/<%= audiofile %>">
-                                    </audio>
-                                </td>
-                                <td>
-                                    <!-- <button type="submit" class="btn">Submit</button> -->
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
-            </table>
-
-            <table>
-                <% audiofile= "sample4.flac" %>
-                    <% abc="/speech_to_text_wavenet/predict/" + audiofile %>
-                        <form action="<%= abc %>" method="POST" enctype="multipart/form-data">
-                            <tr>
-                                <td class="transcript">Sample1</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <audio controls>
-                                        <source src="../audioSamples/<%= audiofile %>">
-                                    </audio>
-                                </td>
-                                <td>
-                                    <!-- <button type="submit" class="btn">Submit</button> -->
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcribe
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
-            </table>
-
-        </div>
-
-        </br>
-
-        <table>
-            <tr>
-                <td class="transcript" style="color:rgb(3, 165, 165)">Predicted Output: </td>
-                </br>
-            </tr>
-            <td>
-                a gentle kick from the tall boy in the bench behind urged stevin to ask at difficult question
-            </td>
-            </tr>
-        </table>
+                        </table>
+                        <%}%>
 
     </div>
 
