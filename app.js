@@ -891,10 +891,13 @@ app.post('/DenseNet201/predict', (req, res) => {
 
 });
 
+//word2vec_google
 app.get('/word2vec_google', (req, res) => res.render('word2vec_google'));
 
+//word2vec_glove
 app.get('/word2vec_glove', (req, res) => res.render('word2vec_glove'));
 
+//speech_to_text_wavenet
 app.get('/speech_to_text_wavenet', (req, res) => res.render('speech_to_text_wavenet'));
 
 //speech_to_text_wavenet upload
