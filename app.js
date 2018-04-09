@@ -926,7 +926,7 @@ app.post('/speech_to_text_wavenet/predict', (req, res) => {
     var audio = fs.createReadStream(audiofileName);
     var payload = { "audio": audio }
     console.log(req.url);
-    var WAVENET_REST_API_URL = "http://129.59.107.65:7012/predict"
+    var WAVENET_REST_API_URL = "http://127.0.0.1:7012/predict"
     var audioPath = "../audioSamples/" + predfileName
     var str = null
     var r = request.post(WAVENET_REST_API_URL, function optionalCallback(err, httpResponse, body) {
@@ -979,7 +979,7 @@ function predictSample(sampleName, req, res, callback) {
     var audio = fs.createReadStream(audiofileName);
     var payload = { "audio": audio }
     // console.log(req.url);
-    var WAVENET_REST_API_URL = "http://129.59.107.65:7012/predict"
+    var WAVENET_REST_API_URL = "http://127.0.0.1:7012/predict"
     var audioPath = "../audioSamples/" + sampleName
     var str_sample = null
     var r_sample = request.post(WAVENET_REST_API_URL, function optionalCallback(err, httpResponse, body) {
