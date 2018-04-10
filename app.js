@@ -64,8 +64,8 @@ function checkAudioType(file, callback) {
     // Allowed ext
     const filetypes = /wav|ogg|mp3|flac/;
     // Check ext
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());    
-    
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
     if (extname) {
         return callback(null, true);
     } else {
@@ -894,6 +894,24 @@ app.post('/DenseNet201/predict', (req, res) => {
 //word2vec_google
 app.get('/word2vec_google', (req, res) => res.render('word2vec_google'));
 
+//word2vec_google predict
+app.get('/word2vec_google/predict_most_similar', (req, res) => {
+    console.log("Predicting word2vec_google..");
+    var _label1 = req.query.label1;
+    var _label2 = req.query.label2;
+    var _label3 = req.query.label3;
+    var word2vec_google_REST_API_URL = "http://129.59.107.65:7010/predict_most_similar"
+    console.log(_label1)
+    console.log(_label2)
+    console.log(_label3)
+    request.post(word2vec_google_REST_API_URL, {form:{'label1':_label1, 'label2':_label2, 'label3':_label3}})
+});
+
+app.post('/word2vec_google/predict_doesnt_match', (req, res) => {
+    var _label4 = req.query.label4;
+
+});
+
 //word2vec_glove
 app.get('/word2vec_glove', (req, res) => res.render('word2vec_glove'));
 
@@ -947,13 +965,12 @@ app.post('/speech_to_text_wavenet/predict', (req, res) => {
             msg: 'File Predicted!',
             file: audioPath,
             str: str
-        });        
+        });
     });
 
     var form = r.form();
     form.append('audio', audio, { filename: 'audio' });
     //console.log(audioPath);
-
 });
 
 app.post('/speech_to_text_wavenet/predict/sample1.mp3', (req, res) => {
@@ -977,7 +994,7 @@ app.post('/speech_to_text_wavenet/predict/sample4.flac', (req, res) => {
     predictSample(sampleName, req, res);
 });
 
-function predictSample(sampleName, req, res, callback) {    
+function predictSample(sampleName, req, res, callback) {
     const audiofileName = "./public/audioSamples/" + sampleName;
     var audio = fs.createReadStream(audiofileName);
     var payload = { "audio": audio }
@@ -1000,7 +1017,7 @@ function predictSample(sampleName, req, res, callback) {
             msg: 'File Predicted!',
             file: audioPath,
             str_sample: str_sample
-        });        
+        });
     });
 
     var form = r_sample.form();
