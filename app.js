@@ -964,6 +964,73 @@ app.get('/word2vec_google/predict_doesnt_match', (req, res) => {
 //word2vec_glove
 app.get('/word2vec_glove', (req, res) => res.render('word2vec_glove'));
 
+//word2vec_glove predict
+app.get('/word2vec_glove/predict_most_similar', (req, res) => {
+    console.log("Predicting word2vec_google..");
+    var _label1 = req.query.label1;
+    var _label2 = req.query.label2;
+    var _label3 = req.query.label3;
+    var word2vec_glove_REST_API_URL = "http://129.59.107.65:7011/predict_most_similar"
+    console.log(_label1)
+    console.log(_label2)
+    console.log(_label3)
+    // request.post(word2vec_glove_REST_API_URL, {form:{'label1':_label1, 'label2':_label2, 'label3':_label3}})
+    var formData = {
+        // Pass a simple key-value pair
+        label1: _label1,
+        label2: _label2,
+        label3: _label3,
+    };
+    request.post({ url: word2vec_glove_REST_API_URL, formData: formData }, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('word2vec_glove', {
+                msg: 'Prediction failed!'
+            });
+            return console.error('prediction failed:', err);
+        }
+        var bodyjson = JSON.parse(body);
+        str = bodyjson['predictions'][0][0][0];
+        console.log(str)
+        // for (i in bodyjson['predictions']) {
+        //     console.log(bodyjson['predictions'][i][0][0]);
+        // }
+        // console.log('prediction successful!  Server responded with:', body);
+        res.render('word2vec_glove', {
+            msg: 'Predicted!',
+            str: str
+        });
+    });
+});
+
+app.get('/word2vec_glove/predict_doesnt_match', (req, res) => {
+    var _label4 = req.query.label4;
+    console.log(_label4)
+    var _word2vec_glove_REST_API_URL = "http://129.59.107.65:7011/predict_doesnt_match"
+    var formData = {
+        // Pass a simple key-value pair
+        label4: _label4
+    };
+    request.post({ url: _word2vec_glove_REST_API_URL, formData: formData }, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            res.render('word2vec_glove', {
+                msg: 'Prediction failed!'
+            });
+            return console.error('prediction failed:', err);
+        }
+        var bodyjson = JSON.parse(body);
+        str_mis = bodyjson['predictions'][0];
+        console.log(str_mis)
+        // for (i in bodyjson['predictions']) {
+        //     console.log(bodyjson['predictions'][i][0][0]);
+        // }
+        // console.log('prediction successful!  Server responded with:', body);
+        res.render('word2vec_glove', {
+            msg: 'Predicted!',
+            str_mis: str_mis
+        });
+    });
+});
+
 //speech_to_text_wavenet
 app.get('/speech_to_text_wavenet', (req, res) => res.render('speech_to_text_wavenet'));
 
