@@ -25,11 +25,13 @@ def predict_most_similar():
         processed_label1 = text_label1.lower()
         print(processed_label1)
         text_label2 = flask.request.form['label2']
-        processed_label2 = text_label2.lower()     
+        processed_label2 = text_label2.lower()
+        print(processed_label2)
         text_label3 = flask.request.form['label3']
         processed_label3 = text_label3.lower()
+        print(processed_label3)
         data["predictions"] = []
-        preds = model.most_similar_cosmul(positive=[processed_label1, processed_label2], negative=[processed_label3], topn=1)
+        preds = model.most_similar_cosmul(positive=[text_label3, text_label2], negative=[text_label1], topn=1)
         # indicate that the request was a success
         data["success"] = True
         data["predictions"].append(preds)
@@ -45,6 +47,7 @@ def predict_doesnt_match():
     if flask.request.method == "POST":
         text_label4 = flask.request.form['label4']
         processed_label4 = text_label4.lower() #"breakfast cereal dinner lunch"
+        print(processed_label4)
         result["predictions"] = []
         pred = model.doesnt_match(processed_label4.split())
         # indicate that the request was a success
