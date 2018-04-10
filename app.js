@@ -904,7 +904,19 @@ app.get('/word2vec_google/predict_most_similar', (req, res) => {
     console.log(_label1)
     console.log(_label2)
     console.log(_label3)
-    request.post(word2vec_google_REST_API_URL, {form:{'label1':_label1, 'label2':_label2, 'label3':_label3}})
+    // request.post(word2vec_google_REST_API_URL, {form:{'label1':_label1, 'label2':_label2, 'label3':_label3}})
+    var formData = {
+        // Pass a simple key-value pair
+        label1: _label1,
+        label2: _label2,
+        label3: _label3,
+      };
+      request.post({url: word2vec_google_REST_API_URL, formData: formData}, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+          return console.error('prediction failed:', err);
+        }
+        console.log('prediction successful!  Server responded with:', body);
+      });
 });
 
 app.post('/word2vec_google/predict_doesnt_match', (req, res) => {
