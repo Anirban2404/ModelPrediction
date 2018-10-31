@@ -43,4 +43,4 @@ npm update
 npm start
 ```
 
-### Now go to <serverip>:5555
+### Now go to [serverip]:5555
