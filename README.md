@@ -22,7 +22,7 @@ sudo apt-get install docker-ce -y
 
 ## Install and run prediction docker containers
 ```
-sudo time docker run -p 7000:7000 -d docgroupvandy/xceptionkeras     		// 0m21.874ss
+sudo time docker run -p 7000:7000 -d docgroupvandy/xceptionkeras     		// 0m21.874s
 sudo time docker run -p 7001:7001 -d docgroupvandy/vgg16keras        		// 0m19.970s
 sudo time docker run -p 7002:7002 -d docgroupvandy/vgg19keras        		// 0m19.449s
 sudo time docker run -p 7003:7003 -d docgroupvandy/resnet50keras     		// 0m23.76s
